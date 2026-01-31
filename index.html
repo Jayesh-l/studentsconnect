@@ -1,133 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First Static Website | AWS S3 | Development</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Fantastic Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Inline CSS (still pure HTML) -->
   <style>
-    :root {
-      --bg-primary: #0f172a;
-      --bg-card: #1e293b;
-      --accent: #facc15;
-      --accent-muted: #fde047;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --border: #334155;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
       line-height: 1.6;
     }
-
-    .container {
-      max-width: 560px;
-      width: 100%;
+    header {
+      padding: 4rem 2rem;
+      text-align: center;
     }
-
-    .badge {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(250, 204, 21, 0.12);
-      border: 1px solid rgba(250, 204, 21, 0.3);
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      margin-bottom: 1.5rem;
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
     }
-
-    h1 {
-      font-size: clamp(1.75rem, 5vw, 2.25rem);
-      font-weight: 700;
-      color: var(--text-primary);
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 2rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    section h2 {
+      font-size: 2rem;
       margin-bottom: 1rem;
-      line-height: 1.3;
+      border-left: 4px solid #00e5ff;
+      padding-left: 0.75rem;
     }
-
-    h1 .highlight {
-      color: var(--accent);
-      font-weight: 700;
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
-
-    .lead {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-    }
-
     .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       padding: 1.5rem;
-      text-align: left;
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s ease, background 0.3s ease;
     }
-
-    .card-title {
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .card h3 {
+      margin-top: 0;
       margin-bottom: 0.5rem;
     }
-
-    .card-content {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.875rem;
-      color: var(--accent-muted);
+    .cta {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
     }
-
-    .footer {
-      margin-top: 2.5rem;
-      font-size: 0.875rem;
-      color: var(--text-secondary);
+    .cta h2 {
+      border: none;
+      padding: 0;
     }
-
-    .env-image {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      margin-bottom: 2rem;
+    .cta a {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.8rem 2rem;
+      background: #00e5ff;
+      color: #003344;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 999px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .cta a:hover {
+      background: #4dffff;
+      transform: scale(1.05);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
   </style>
 </head>
-<body>
-  <main class="container">
-    <span class="badge">AWS S3 Hosting · Development(Jayesh Yadav)</span>
-    <img class="env-image" src="images/dev.svg" alt="Development environment" width="400" height="200">
-    <h1>Hello, Experts — <span class="highlight">Your First Static Website</span> is Live</h1>
-    <p class="lead">This static website is hosted on Amazon S3 (Development). HI i am jayesh hello.</p>
-    
-    <div class="card">
-      <div class="card-title">What you've accomplished</div>
-      <div class="card-content">Static site → S3 bucket → Public URL</div>
-    </div>
 
-    <p class="footer">Built by students, for students. Welcome to the web.</p>
+<body>
+  <header>
+    <h1>Fantastic Website</h1>
+    <p>Clean. Modern. Simple. And just a little magical ✨</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Why This Site Is Fantastic</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Elegant Design</h3>
+          <p>
+            A smooth gradient, soft glassy cards, and balanced typography
+            create a calm yet futuristic feel.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Responsive Layout</h3>
+          <p>
+            Built with flexible grids so it looks great on phones, tablets,
+            and large screens alike.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Pure HTML</h3>
+          <p>
+            No frameworks, no dependencies — just well-structured HTML doing
+            its thing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What You Can Do Next</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Customize</h3>
+          <p>
+            Change colors, fonts, and content to match your brand or personal
+            style.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Expand</h3>
+          <p>
+            Add more sections, images, or interactivity as your project grows.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Launch</h3>
+          <p>
+            Upload it to a server and let the world see your fantastic website.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2>Ready to Build Something Amazing?</h2>
+      <p>
+        This is just the beginning. Great ideas deserve great presentation.
+      </p>
+      <a href="#">Get Started</a>
+    </section>
   </main>
+
+  <footer>
+    © 2026 Fantastic Website — Built with ❤️ and pure HTML
+  </footer>
 </body>
 </html>
